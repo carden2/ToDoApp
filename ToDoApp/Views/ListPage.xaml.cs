@@ -61,6 +61,7 @@ public partial class ListPage : ContentPage
     {
         Button btn = (Button)sender;
         var myItem  = (ToDoItem)btn.BindingContext;
+        var title = myItem.title;
         //remove item
         MyItems.Remove(myItem);
         
@@ -68,6 +69,6 @@ public partial class ListPage : ContentPage
         dataAccess.saveToDoList(myItem.listId, MyItems.ToList());
         
         //confirm deletion
-        await DisplayAlert("Delete", "You have deleted " + myItem.title, "ok");
+        await DisplayAlert("Delete", "You have deleted " + title, "ok");
     }
 }
