@@ -25,7 +25,7 @@
                         Clicked="AddInputItemTolist" />
             </Grid>
             
-            <ListView x:Name="listView" Margin="16" ItemsSource="{Binding MyNames}"
+            <ListView x:Name="listView" Margin="16" ItemsSource="{Binding MyNames}" ItemTapped="ListView_OnItemTapped"
                       ItemSelected="ListView_OnItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>

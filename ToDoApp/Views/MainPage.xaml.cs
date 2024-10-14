@@ -9,6 +9,9 @@ public partial class MainPage : ContentPage
 {
     public ObservableCollection<ToDoList> MyNames { get;set;} = new ObservableCollection<ToDoList>();
     private DataAccess dataAccess = new DataAccess();
+    
+    private bool isSelected;
+
     public MainPage()
     {
         InitializeComponent();
@@ -42,11 +45,9 @@ public partial class MainPage : ContentPage
 
     private async void ListView_OnItemSelected(object? sender, SelectedItemChangedEventArgs e)
     {
-        //get the object and navigate to the to do list screen
-        var selectedItem = (ToDoList)e.SelectedItem;
-        await Navigation.PushAsync(new ListPage(selectedItem));
+        isSelected = true;
     }
-
+    
     private async void DeleteList_OnClicked(object? sender, EventArgs e)
     {
         Button btn = (Button)sender;
@@ -58,5 +59,15 @@ public partial class MainPage : ContentPage
         dataAccess.saveNewList(MyNames.ToList());
         
         await DisplayAlert("Delete", "You have deleted " + myName.title, "ok");
+    }
+
+    private async void ListView_OnItemTapped(object? sender, ItemTappedEventArgs e)
+    {
+        if(!isSelected)
+        {
+            var selectedItem = (ToDoList)e.Item;
+            await Navigation.PushAsync(new ListPage(selectedItem));
+        }
+        isSelected = false;
     }
 }
